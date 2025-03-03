@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Vikas Kumar Kumawat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            color: #212529;
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        .toggle-theme {
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        .full-screen {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: left;
+            flex-direction: row;
+            padding: 0 10%;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .dark-mode .full-screen {
+            background-color: #1e1e1e;
+        }
+        .profile-img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            margin-right: 40px;
+        }
+        .skills {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            padding: 50px 0;
+            background-color: #ffffff;
+        }
+        .dark-mode .skills {
+            background-color: #1e1e1e;
+        }
+        .skills img {
+            width: 100px;
+            height: 100px;
+        }
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .dark-mode .card {
+            background-color: #1e1e1e;
+            border-color: #333;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .contact-form {
+            padding: 50px 0;
+            text-align: center;
+            background-color: #ffffff;
+        }
+        .dark-mode .contact-form {
+            background-color: #1e1e1e;
+        }
+    </style>
+</head>
+<body>
+    <span class="toggle-theme" onclick="toggleTheme()"><i class="fas fa-adjust"></i></span>
+    
+    <section class="full-screen">
+        <img src="my-profile.jpg" alt="Vikas Kumar Kumawat" class="profile-img">
+        <div>
+            <h1>Vikas Kumar Kumawat</h1>
+            <p>Web Developer | Jaipur, Rajasthan</p>
+        </div>
+    </section>
+    
+    <section class="skills">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v7/icons/django.svg" alt="Django" title="Django">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v7/icons/html5.svg" alt="HTML" title="HTML">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v7/icons/css3.svg" alt="CSS" title="CSS">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v7/icons/javascript.svg" alt="JavaScript" title="JavaScript">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v7/icons/bootstrap.svg" alt="Bootstrap" title="Bootstrap">
+    </section>
+    
+    <section class="container py-5">
+        <h2 class="text-center">Projects</h2>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="projects/project1.jpg" class="card-img-top" alt="Project 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Project 1</h5>
+                        <p class="card-text">A brief description of Project 1.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="projects/project2.jpg" class="card-img-top" alt="Project 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Project 2</h5>
+                        <p class="card-text">A brief description of Project 2.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="projects/project3.jpg" class="card-img-top" alt="Project 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Project 3</h5>
+                        <p class="card-text">A brief description of Project 3.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="contact-form">
+        <h2>Contact Me</h2>
+        <form class="container">
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Your Name">
+            </div>
+            <div class="mb-3">
+                <input type="email" class="form-control" placeholder="Your Email">
+            </div>
+            <div class="mb-3">
+                <textarea class="form-control" rows="4" placeholder="Your Message"></textarea>
+            </div>
+            <button class="btn btn-primary">Send Message</button>
+        </form>
+    </section>
+    
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+</html>
