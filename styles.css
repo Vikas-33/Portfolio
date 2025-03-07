@@ -55,8 +55,8 @@ body.dark-theme .hero-right {
 
 /* Profile Image */
 .profile-img {
-    width: 200px;
-    height: 200px;
+    width: 600px;
+    height: 600px;
     border-radius: 50%;
     object-fit: cover;
     border: 5px solid #8c75f1;
