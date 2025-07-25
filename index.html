@@ -3,105 +3,773 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Vikas Kumar Kumawat</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Your Name - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables for Dark Theme (Default) */
+        :root {
+            --background-dark: #1a1a2e;
+            --background-light-dark: #16213e;
+            --text-light: #e0e0e0;
+            --text-accent: #0f3460;
+            --accent-color: #e94560;
+            --border-color: #0f3460;
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --font-primary: 'Montserrat', sans-serif;
+            --font-secondary: 'Roboto Mono', monospace;
+        }
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+        /* Light Theme Variables */
+        body.light-theme {
+            --background-dark: #f0f2f5;
+            --background-light-dark: #ffffff;
+            --text-light: #333333;
+            --text-accent: #555555;
+            --accent-color: #007bff; /* A nice blue for light theme accent */
+            --border-color: #e0e0e0;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--background-light-dark);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-secondary);
+            font-size: 1.8em;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Theme Toggle Button */
+        #theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            margin-left: 20px; /* Space from navigation */
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #theme-toggle:hover {
+            background-color: var(--accent-color);
+            color: var(--background-light-dark);
+            border-color: var(--accent-color);
+        }
+
+        #theme-toggle i {
+            transition: color 0.3s ease;
+        }
+
+
+        /* Hero Section */
+        #hero {
+            background: linear-gradient(rgba(26, 26, 46, 0.8), rgba(26, 26, 46, 0.8)), url('hero-background-dark.jpg') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+            color: var(--text-light);
+            transition: background 0.5s ease; /* Smooth transition for background image/gradient */
+        }
+
+        /* Light theme specific hero background */
+        body.light-theme #hero {
+            background: linear-gradient(rgba(240, 242, 245, 0.8), rgba(240, 242, 245, 0.8)), url('hero-background-light.jpg') no-repeat center center/cover;
+            background-size: cover;
+        }
+
+        /* Profile Image Styling */
+        .profile-image {
+            width: 150px; /* Adjust size as needed */
+            height: 150px;
+            border-radius: 50%; /* Makes it circular */
+            object-fit: cover; /* Ensures the image fills the circle without distortion */
+            margin-bottom: 20px; /* Adjust spacing below the image */
+            border: 3px solid var(--accent-color); /* Optional border */
+            box-shadow: 0 4px 8px var(--shadow-color); /* Optional shadow */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for theme change */
+        }
+
+        body.light-theme .profile-image {
+            border-color: var(--accent-color); /* Adjust light theme border if needed */
+            box-shadow: 0 4px 8px var(--shadow-color); /* Adjust light theme shadow if needed */
+        }
+
+
+        #hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+            animation: fadeIn 1.5s ease-out;
+            transition: color 0.3s ease;
+        }
+
+        #hero p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            font-family: var(--font-secondary);
+            animation: fadeIn 2s ease-out;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--text-light);
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .btn:hover {
+            background-color: #ff6b81; /* Slightly lighter accent for dark theme */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+        }
+
+        body.light-theme .btn:hover {
+            background-color: #0056b3; /* Darker blue for light theme */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+
+        /* Sections General Styling */
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: border-color 0.3s ease;
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        section h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: var(--accent-color);
+            text-align: center;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -10px;
+            border-radius: 2px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* About Section */
+        #about p {
+            font-size: 1.1em;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            padding: 0 20px;
+        }
+
+        .skill-item {
+            background-color: var(--background-light-dark);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            background-color: #2a3b5a; /* Slightly lighter for dark theme */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        body.light-theme .skill-item:hover {
+            background-color: #e9ecef; /* Slightly darker for light theme */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .skill-item i {
+            font-size: 3em;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .skill-item h3 {
+            font-size: 1.3em;
+            color: var(--text-light);
+            transition: color 0.3s ease;
+        }
+
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .portfolio-item {
+            background-color: var(--background-light-dark);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        body.light-theme .portfolio-item:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid var(--border-color);
+            transition: border-color 0.3s ease;
+        }
+
+        .portfolio-info {
+            padding: 20px;
+        }
+
+        .portfolio-info h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+            transition: color 0.3s ease;
+        }
+
+        .portfolio-info p {
+            font-size: 0.95em;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .portfolio-info .btn {
+            font-size: 0.9em;
+            padding: 8px 15px;
+        }
+
+        /* Contact Section */
+        #contact .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--background-light-dark);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-light);
+            transition: color 0.3s ease;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            font-family: var(--font-primary);
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--accent-color);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form button {
+            background-color: var(--accent-color);
+            color: var(--text-light);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+            width: 100%;
+        }
+
+        .contact-form button:hover {
+            background-color: #ff6b81;
+            transform: translateY(-3px);
+        }
+
+        body.light-theme .contact-form button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--background-light-dark);
+            color: var(--text-light);
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            font-size: 1.8em;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 20px;
+            }
+
+            nav ul li {
+                display: block;
+                margin: 10px 0;
+            }
+
+            /* Adjust theme toggle for smaller screens */
+            #theme-toggle {
+                margin-top: 15px;
+                margin-left: 0;
+            }
+
+            #hero h1 {
+                font-size: 2.5em;
+            }
+
+            #hero p {
+                font-size: 1.2em;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            section h2 {
+                font-size: 2em;
+            }
+
+            .skills-grid, .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Adjust profile image size on smaller screens if in Hero */
+            #hero .profile-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            /* Adjust profile image size on smaller screens if in About */
+            #about .profile-image {
+                width: 120px;
+                height: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.5em;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+
+            .skill-item {
+                padding: 20px;
+            }
+
+            .skill-item i {
+                font-size: 2.5em;
+            }
+
+            .portfolio-info h3 {
+                font-size: 1.3em;
+            }
+
+            .contact-form {
+                padding: 25px;
+            }
+
+            /* Further adjust profile image size on very small screens */
+            #hero .profile-image,
+            #about .profile-image {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <header>
         <div class="container">
-            <a class="navbar-brand" href="#">Vikas Kumar Kumawat</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                    <li class="nav-item ms-auto">
-                        <button id="theme-toggle" class="btn btn-outline-light">
-                            <i id="theme-icon" class="fas fa-moon"></i>
-                        </button>
-                    </li>
+            <a href="#" class="logo">YourName.dev</a>
+            <nav>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
-            </div>
+            </nav>
+            <button id="theme-toggle" aria-label="Toggle dark/light theme">
+                <i class="fas fa-sun"></i>
+            </button>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section (Split Screen) -->
-    <section class="hero-section" id="home">
-        <div class="hero-container">
-            <div class="hero-left">
-                <img src="/images/profile.jpeg" alt="My Image" class="profile-img">
+    <main>
+        <section id="hero">
+            <div class="container">
+                <img src="images/profile.jpeg" alt="Your Profile" class="profile-image">
+                <h1>Hi, I'm Your Name</h1>
+                <p>A Passionate Web Developer & Designer</p>
+                <a href="#portfolio" class="btn">View My Work</a>
             </div>
-            <div class="hero-right">
-                <h1>Vikas Kumar Kumawat</h1>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <h2>About Me</h2>
                 <p>
-                    I’m a passionate web developer specializing in React and Django, dedicated to building 
-                    dynamic, user-friendly, and scalable web applications. With a keen eye for design and
-                    performance, I turn ideas into seamless digital experiences. Let’s create something 
-                    amazing together!
+                    Hello! I'm a dedicated and creative web developer with a strong passion for building beautiful, responsive, and user-friendly websites and applications. With expertise in front-end and a growing understanding of back-end technologies, I love transforming ideas into reality through code. My journey in web development began with a curiosity for how things work on the internet, and it has since evolved into a commitment to continuous learning and problem-solving.
+                    I am always eager to learn new technologies and improve my skills to deliver high-quality digital experiences.
                 </p>
-                <a href="#projects" class="btn btn-primary mt-3">View My Work</a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Skills -->
-    <section class="skills" id="skills">
-        <h2>Skills</h2>
-        <div class="skills-container">
-            <div class="card"><img src="/images/django-plain.svg" alt="Django"><p>Django</p></div>
-            <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5"><p>HTML5</p></div>
-            <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3"><p>CSS3</p></div>
-            <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript"><p>JavaScript</p></div>
-            <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"><p>Python</p></div>
-            <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java"><p>Java</p></div>
-            <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="C"><p>C</p></div>
-            <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++"><p>C++</p></div>
-            <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"><p>React</p></div>
-        </div>
-    </section>
+        <section id="skills">
+            <div class="container">
+                <h2>Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <i class="fab fa-html5"></i>
+                        <h3>HTML5</h3>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-css3-alt"></i>
+                        <h3>CSS3</h3>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-js"></i>
+                        <h3>JavaScript</h3>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-react"></i>
+                        <h3>React</h3>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-node-js"></i>
+                        <h3>Node.js</h3>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-database"></i>
+                        <h3>Databases</h3>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-git-alt"></i>
+                        <h3>Git & GitHub</h3>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Responsive Design</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Projects -->
-    <section class="projects " id="projects">
-        <h2>Projects</h2>
+        <section id="portfolio">
+            <div class="container">
+                <h2>My Portfolio</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <img src="images/E-commerce.png" alt="Project One">
+                        <div class="portfolio-info">
+                            <h3>Project Alpha</h3>
+                            <p>A modern e-commerce platform built with React and Node.js.</p>
+                            <a href="#" class="btn" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="images/to-do-list.png" alt="Project Two">
+                        <div class="portfolio-info">
+                            <h3>Project Beta</h3>
+                            <p>A minimalist personal blog site with a custom CMS.</p>
+                            <a href="#" class="btn" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="image3.jpg" alt="Project Three">
+                        <div class="portfolio-info">
+                            <h3>Project Gamma</h3>
+                            <p>An interactive data visualization dashboard using D3.js.</p>
+                            <a href="#" class="btn" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="image4.jpg" alt="Project Four">
+                        <div class="portfolio-info">
+                            <h3>Project Delta</h3>
+                            <p>A mobile-first landing page for a SaaS product.</p>
+                            <a href="#" class="btn" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <h2>Get In Touch</h2>
+                <form class="contact-form">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" required></textarea>
+
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
         <div class="container">
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="project-card bg-primary text-white">
-                        <h4>E-commerce Store</h4>
-                        <p>A full-featured e-commerce website with user authentication and seller dashboard</p>
-                        <img src="/images/E-commerce.png" class="project-img" alt="E-commerce">
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="project-card bg-success text-white">
-                        <h4>To-Do List App</h4>
-                        <p>A Django-based task management app with due dates, reminders, and priority levels.</p>
-                        <img src="/images/to-do-list.png" class="project-img" alt="To-Do List">
-                    </div>
-                </div>
+            <p>&copy; <span id="current-year"></span> Your Name. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" target="_blank" aria-label="Twitter" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
             </div>
         </div>
-    </section>
+    </footer>
 
-    <!-- Contact -->
-    <section class="contact" id="contact">
-        <h2>Contact Me</h2>
-        <form>
-            <input type="text" placeholder="Your Name" class="form-control mb-3">
-            <input type="email" placeholder="Your Email" class="form-control mb-3">
-            <textarea placeholder="Your Message" class="form-control mb-3" rows="5"></textarea>
-            <button type="submit" class="btn btn-primary">Send</button>
-        </form>
-    </section>
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
 
-    <script src="script.js"></script>
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Update copyright year dynamically
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Theme Switcher Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const themeIcon = themeToggle.querySelector('i');
+        const heroSection = document.getElementById('hero');
+
+        // Function to set hero background based on theme
+        function setHeroBackground(isLight) {
+            if (isLight) {
+                heroSection.style.backgroundImage = 'linear-gradient(rgba(240, 242, 245, 0.8), rgba(240, 242, 245, 0.8)), url(\'hero-background-light.jpg\')';
+            } else {
+                heroSection.style.backgroundImage = 'linear-gradient(rgba(26, 26, 46, 0.8), rgba(26, 26, 46, 0.8)), url(\'hero-background-dark.jpg\')';
+            }
+        }
+
+        // Check for saved theme preference or system preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+
+        if (savedTheme === 'light') {
+            body.classList.add('light-theme');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+            setHeroBackground(true);
+        } else if (savedTheme === null && prefersLight) {
+            // If no saved theme, and system prefers light, set light theme
+            body.classList.add('light-theme');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+            setHeroBackground(true);
+        } else {
+            // Default to dark theme
+            body.classList.remove('light-theme');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+            setHeroBackground(false);
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            if (body.classList.contains('light-theme')) {
+                localStorage.setItem('theme', 'light');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                setHeroBackground(true);
+            } else {
+                localStorage.setItem('theme', 'dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                setHeroBackground(false);
+            }
+        });
+
+        // Optional: Simple form submission handler (for demonstration, in real projects use backend)
+        const contactForm = document.querySelector('.contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent default form submission
+
+                // In a real application, you would send this data to a backend server
+                // using fetch() or XMLHttpRequest.
+                alert('Thank you for your message! I will get back to you soon.');
+                this.reset(); // Clear the form
+            });
+        }
+    </script>
 </body>
 </html>
