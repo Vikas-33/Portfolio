@@ -518,7 +518,10 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             #hero {
-                margin-top: -600px;
+                margin-top: -60px;
+            }
+            body.nav-hidden main {
+                padding-top: 0 !important;
             }
             header.shrink .container {
                 padding-top: 5px;
@@ -869,6 +872,8 @@
             if (window.scrollY > 100 && navbarVisible) {
                 header.classList.add("hidden");
                 navToggleBtn.classList.add("show");
+                document.body.classList.add("nav-hidden");
+
                 navbarVisible = false;
             }
         });
@@ -880,15 +885,18 @@
                 header.classList.add("hidden");
                 navToggleBtn.classList.remove("rotate");
                 navToggleBtn.innerHTML = "☰";
+                document.body.classList.add("nav-hidden");   // ✅ ADD
                 navbarVisible = false;
             } else {
                 // SHOW navbar → show ✕
                 header.classList.remove("hidden");
                 navToggleBtn.classList.add("rotate");
                 navToggleBtn.innerHTML = "✕";
+                document.body.classList.remove("nav-hidden"); // ✅ ADD
                 navbarVisible = true;
             }
         });
+
 
 
 
