@@ -119,7 +119,7 @@
             cursor: pointer;
             display: none;
             box-shadow: 0 6px 14px var(--shadow-color);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, background-color 0.3s ease;
         }
 
         #nav-toggle-btn.rotate {
@@ -873,17 +873,20 @@
         // Toggle navbar manually using button
         navToggleBtn.addEventListener("click", () => {
             if (navbarVisible) {
+                // HIDE navbar → show ☰
                 header.classList.add("hidden");
-                navToggleBtn.classList.add("hidden");
+                navToggleBtn.classList.remove("rotate");
                 navToggleBtn.innerHTML = "☰";
                 navbarVisible = false;
             } else {
+                // SHOW navbar → show ✕
                 header.classList.remove("hidden");
-                navToggleBtn.classList.remove("rotate");
-                navToggleBtn.innerHTML = "x";
+                navToggleBtn.classList.add("rotate");
+                navToggleBtn.innerHTML = "✕";
                 navbarVisible = true;
             }
         });
+
 
 
 
