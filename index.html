@@ -68,8 +68,9 @@
         }
         /* NAVBAR SHRINK ON SCROLL */
         header.shrink {
-            padding: 8px 0;
+            padding: 4px 0;
             box-shadow: 0 4px 15px var(--shadow-color);
+            backdrop-filter: blur(6px);
         }
 
         header.shrink .logo {
@@ -81,6 +82,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            min-height: 64px;
+        }
+        header.shrink .container {
+            min-height: 48px;
         }
 
         .logo {
@@ -105,12 +110,17 @@
             color: var(--text-light);
             text-decoration: none;
             font-weight: 600;
-            transition: color 0.3s ease;
+            font-size: 1em;
+            transition: font-size 0.3s ease;
         }
 
         nav ul li a:hover {
             color: var(--accent-color);
         }
+        header.shrink nav ul li a {
+            font-size: 0.9em;
+        }
+
 
         /* Theme Toggle Button */
         #theme-toggle {
