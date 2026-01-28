@@ -66,6 +66,16 @@
             z-index: 1000;
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
+        /* NAVBAR SHRINK ON SCROLL */
+        header.shrink {
+            padding: 8px 0;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+
+        header.shrink .logo {
+            font-size: 1.4em;
+        }
+
 
         header .container {
             display: flex;
@@ -770,6 +780,17 @@
                 this.reset(); // Clear the form
             });
         }
+        // NAVBAR SHRINK ON SCROLL
+        const header = document.querySelector("header");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 80) {
+                header.classList.add("shrink");
+            } else {
+                header.classList.remove("shrink");
+            }
+        });
+
     </script>
 </body>
 </html>
