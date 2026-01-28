@@ -106,20 +106,21 @@
         /* TOGGLE BUTTON */
         #nav-toggle-btn {
             position: fixed;
-            top: 12px;
+            top: 16px;              /* push it clearly into view */
             right: 16px;
-            z-index: 2000;
+            z-index: 9999;          /* higher than header & hero */
             background-color: var(--accent-color);
             color: #fff;
             border: none;
             border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            font-size: 20px;
+            width: 48px;
+            height: 48px;
+            font-size: 22px;
             cursor: pointer;
             display: none;
-            box-shadow: 0 4px 10px var(--shadow-color);
+            box-shadow: 0 6px 14px var(--shadow-color);
         }
+
 
         /* Show button when navbar is hidden */
         #nav-toggle-btn.show {
@@ -616,9 +617,7 @@
 </head>
 <body>
     <header>
-        <button id="nav-toggle-btn" aria-label="Toggle navigation">
-    ☰
-</button>
+        
 
         <div class="container">
             <a href="#" class="logo">Vikas.dev</a>
@@ -636,6 +635,9 @@
             </button>
         </div>
     </header>
+    <button id="nav-toggle-btn" aria-label="Toggle navigation">
+    ☰
+</button>
 
     <main>
         <section id="hero">
