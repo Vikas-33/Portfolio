@@ -874,12 +874,12 @@
         navToggleBtn.addEventListener("click", () => {
             if (navbarVisible) {
                 header.classList.add("hidden");
-                navToggleBtn.classList.add("rotate");
+                navToggleBtn.classList.add("hidden");
                 navToggleBtn.innerHTML = "☰";
                 navbarVisible = false;
             } else {
                 header.classList.remove("hidden");
-                navToggleBtn.classList.remove("hidden");
+                navToggleBtn.classList.remove("rotate");
                 navToggleBtn.innerHTML = "x";
                 navbarVisible = true;
             }
