@@ -94,6 +94,38 @@
             padding-top: 4px;
             padding-bottom: 4px;
         }
+        /* NAVBAR VISIBILITY */
+        header {
+            transition: transform 0.4s ease;
+        }
+
+        header.hidden {
+            transform: translateY(-100%);
+        }
+
+        /* TOGGLE BUTTON */
+        #nav-toggle-btn {
+            position: fixed;
+            top: 12px;
+            right: 16px;
+            z-index: 2000;
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 4px 10px var(--shadow-color);
+        }
+
+        /* Show button when navbar is hidden */
+        #nav-toggle-btn.show {
+            display: block;
+        }
+
 
         .logo {
             font-family: var(--font-secondary);
@@ -584,6 +616,10 @@
 </head>
 <body>
     <header>
+        <button id="nav-toggle-btn" aria-label="Toggle navigation">
+    ☰
+</button>
+
         <div class="container">
             <a href="#" class="logo">Vikas.dev</a>
             <nav>
@@ -812,15 +848,35 @@
             });
         }
         // NAVBAR SHRINK ON SCROLL
-        const header = document.querySelector("header");
+        
 
+        const header = document.querySelector("header");
+        const navToggleBtn = document.getElementById("nav-toggle-btn");
+
+        let navbarVisible = true;
+
+        // Hide navbar on scroll down
         window.addEventListener("scroll", () => {
-            if (window.scrollY > 80) {
-                header.classList.add("shrink");
-            } else {
-                header.classList.remove("shrink");
+            if (window.scrollY > 100 && navbarVisible) {
+                header.classList.add("hidden");
+                navToggleBtn.classList.add("show");
+                navbarVisible = false;
             }
         });
+
+        // Toggle navbar manually using button
+        navToggleBtn.addEventListener("click", () => {
+            if (navbarVisible) {
+                header.classList.add("hidden");
+                navToggleBtn.classList.add("show");
+                navbarVisible = false;
+            } else {
+                header.classList.remove("hidden");
+                navToggleBtn.classList.remove("show");
+                navbarVisible = true;
+            }
+        });
+
 
     </script>
 </body>
