@@ -102,6 +102,17 @@ section{position:relative;z-index:1}
 .sk-icon{font-size:1.5rem;margin-bottom:6px}
 .sk-name{font-family:'Fira Code',monospace;font-size:.74rem;color:#e8f4ff;letter-spacing:.04em;font-weight:500}
 .sk-level{font-family:'Fira Code',monospace;font-size:.62rem;color:var(--muted);margin-top:4px}
+.skill-row{display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;border-bottom:1px solid var(--border);transition:all .2s}
+.skill-row:hover{padding-left:6px}
+.skill-row-left{display:flex;align-items:center;gap:10px}
+.sk-icon{font-size:1.2rem}
+.sk-row-name{font-family:'Fira Code',monospace;font-size:.78rem;color:#e8f4ff;letter-spacing:.04em}
+.sk-badge{font-family:'Fira Code',monospace;font-size:.62rem;padding:3px 10px;border-radius:20px;letter-spacing:.04em}
+.sk-adv{background:rgba(74,240,196,.1);border:1px solid rgba(74,240,196,.25);color:var(--accent)}
+.sk-mid{background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);color:var(--accent2)}
+.titem-bullets{list-style:none;margin-top:.6rem;display:flex;flex-direction:column;gap:.45rem}
+.titem-bullets li{font-size:.81rem;color:#c8dde8;line-height:1.65;padding-left:1rem;position:relative}
+.titem-bullets li::before{content:'▸';position:absolute;left:0;color:var(--accent);font-size:.7rem;top:2px}
 
 /* ── PROJECTS ── */
 .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
@@ -161,7 +172,7 @@ footer{border-top:1px solid var(--border);padding:2rem 8rem;display:flex;justify
 .footer-r span{color:var(--accent)}
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
 .reveal.vis{opacity:1;transform:translateY(0)}
-@media(max-width:900px){nav{padding:1rem 1.5rem}.nav-links{display:none}#hero{grid-template-columns:1fr;padding:7rem 1.5rem 3rem}.hero-photo{display:none}.sec-wrap{padding:4rem 2rem}.about-grid,.proj-grid,.journey-grid,.contact-grid,.form-row{grid-template-columns:1fr}footer{padding:1.5rem;flex-direction:column;gap:6px;text-align:center}#cursor-switcher{display:none}}
+@media(max-width:900px){nav{padding:1rem 1.5rem}.nav-links{display:none}#hero{grid-template-columns:1fr;padding:7rem 1.5rem 3rem}.hero-photo{display:none}.sec-wrap{padding:4rem 2rem}.about-grid,.proj-grid,.journey-grid,.contact-grid,.form-row{grid-template-columns:1fr}footer{padding:1.5rem;flex-direction:column;gap:6px;text-align:center}.reveal>div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr}}
 </style>
 </head>
 <body class="cursor-grad">
@@ -236,17 +247,23 @@ footer{border-top:1px solid var(--border);padding:2rem 8rem;display:flex;justify
 <section id="skills"><div class="sec-wrap">
   <div class="sec-head reveal"><span class="sec-num">02.</span><h2 class="sec-title">My Skills</h2><div class="sec-line"></div></div>
   <p class="reveal" style="font-size:.85rem;color:var(--muted);font-family:'Fira Code',monospace;margin-bottom:2rem">// backend-focused · full-stack capable · always learning</p>
-  <div class="skills-grid reveal">
-    <div class="skill-card"><div class="sk-icon">🐍</div><div class="sk-name">Python</div><div class="sk-level">Advanced</div></div>
-    <div class="skill-card"><div class="sk-icon">🎯</div><div class="sk-name">Django</div><div class="sk-level">Advanced</div></div>
-    <div class="skill-card"><div class="sk-icon">🌐</div><div class="sk-name">HTML/CSS</div><div class="sk-level">Intermediate</div></div>
-    <div class="skill-card"><div class="sk-icon">⚡</div><div class="sk-name">JavaScript</div><div class="sk-level">Intermediate</div></div>
-    <div class="skill-card"><div class="sk-icon">🗄️</div><div class="sk-name">SQL</div><div class="sk-level">Intermediate</div></div>
-    <div class="skill-card"><div class="sk-icon">☕</div><div class="sk-name">Java</div><div class="sk-level">Intermediate</div></div>
-    <div class="skill-card"><div class="sk-icon">⚙️</div><div class="sk-name">C / C++</div><div class="sk-level">Intermediate</div></div>
-    <div class="skill-card"><div class="sk-icon">🔗</div><div class="sk-name">REST APIs</div><div class="sk-level">Advanced</div></div>
-    <div class="skill-card"><div class="sk-icon">🐘</div><div class="sk-name">PostgreSQL</div><div class="sk-level">Intermediate</div></div>
-    <div class="skill-card"><div class="sk-icon">🐙</div><div class="sk-name">Git & GitHub</div><div class="sk-level">Intermediate</div></div>
+  <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem">
+      <div style="font-family:'Fira Code',monospace;font-size:.68rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:8px"><span style="display:inline-block;width:20px;height:1px;background:var(--accent)"></span>Backend</div>
+      <div class="skill-row"><div class="skill-row-left"><span class="sk-icon">🐍</span><span class="sk-row-name">Python</span></div><span class="sk-badge sk-adv">Advanced</span></div>
+      <div class="skill-row"><div class="skill-row-left"><span class="sk-icon">🎯</span><span class="sk-row-name">Django</span></div><span class="sk-badge sk-adv">Advanced</span></div>
+      <div class="skill-row"><div class="skill-row-left"><span class="sk-icon">🔗</span><span class="sk-row-name">REST APIs</span></div><span class="sk-badge sk-adv">Advanced</span></div>
+      <div class="skill-row"><div class="skill-row-left"><span class="sk-icon">🐘</span><span class="sk-row-name">PostgreSQL</span></div><span class="sk-badge sk-mid">Intermediate</span></div>
+      <div class="skill-row" style="border-bottom:none"><div class="skill-row-left"><span class="sk-icon">🗄️</span><span class="sk-row-name">SQL</span></div><span class="sk-badge sk-mid">Intermediate</span></div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem">
+      <div style="font-family:'Fira Code',monospace;font-size:.68rem;color:var(--accent2);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:8px"><span style="display:inline-block;width:20px;height:1px;background:var(--accent2)"></span>Frontend &amp; Tools</div>
+      <div class="skill-row"><div class="skill-row-left"><span class="sk-icon">🌐</span><span class="sk-row-name">HTML / CSS</span></div><span class="sk-badge sk-mid">Intermediate</span></div>
+      <div class="skill-row"><div class="skill-row-left"><span class="sk-icon">⚡</span><span class="sk-row-name">JavaScript</span></div><span class="sk-badge sk-mid">Intermediate</span></div>
+      <div class="skill-row"><div class="skill-row-left"><span class="sk-icon">☕</span><span class="sk-row-name">Java</span></div><span class="sk-badge sk-mid">Intermediate</span></div>
+      <div class="skill-row"><div class="skill-row-left"><span class="sk-icon">⚙️</span><span class="sk-row-name">C / C++</span></div><span class="sk-badge sk-mid">Intermediate</span></div>
+      <div class="skill-row" style="border-bottom:none"><div class="skill-row-left"><span class="sk-icon">🐙</span><span class="sk-row-name">Git &amp; GitHub</span></div><span class="sk-badge sk-mid">Intermediate</span></div>
+    </div>
   </div>
 </div></section>
 
@@ -272,22 +289,74 @@ footer{border-top:1px solid var(--border);padding:2rem 8rem;display:flex;justify
     </div>
   </div>
 </div></section>
-
+<!-- journey section -->
 <section id="journey"><div class="sec-wrap">
   <div class="sec-head reveal"><span class="sec-num">04.</span><h2 class="sec-title">Journey</h2><div class="sec-line"></div></div>
   <div class="journey-grid">
     <div class="journey-col reveal">
       <h3>Work Experience</h3>
       <div class="timeline">
-        <div class="titem"><div class="titem-year">2025 – Present</div><div class="titem-title">Backend Developer Intern</div><div class="titem-sub">Python · Django · REST APIs</div><div class="titem-desc">Built backend APIs, worked with databases, and delivered features for web applications using Django and Python.</div></div>
-        <div class="titem"><div class="titem-year">2024</div><div class="titem-title">Web Development Intern</div><div class="titem-sub">HTML · CSS · JavaScript</div><div class="titem-desc">Developed responsive frontend interfaces and integrated backend APIs for client projects.</div></div>
+        <div class="titem">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem">
+            <div>
+              <div class="titem-title">Backend Developer Intern</div>
+              <div class="titem-sub" style="margin-bottom:0">Python · Django · REST APIs</div>
+            </div>
+            <span style="font-family:'Fira Code',monospace;font-size:.62rem;padding:3px 10px;background:rgba(74,240,196,.1);border:1px solid rgba(74,240,196,.25);color:var(--accent);border-radius:20px;white-space:nowrap">2025 – Present</span>
+          </div>
+          <ul class="titem-bullets">
+            <li>Built and maintained RESTful APIs using Django REST Framework for production web apps</li>
+            <li>Designed and optimised database schemas in PostgreSQL reducing query response time</li>
+            <li>Integrated third-party services and payment gateways into Django backend</li>
+            <li>Collaborated with frontend team to deliver features end-to-end within sprint deadlines</li>
+          </ul>
+        </div>
+        <div class="titem">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem">
+            <div>
+              <div class="titem-title">Web Development Intern</div>
+              <div class="titem-sub" style="margin-bottom:0">HTML · CSS · JavaScript</div>
+            </div>
+            <span style="font-family:'Fira Code',monospace;font-size:.62rem;padding:3px 10px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);color:var(--accent2);border-radius:20px;white-space:nowrap">2024</span>
+          </div>
+          <ul class="titem-bullets">
+            <li>Developed responsive frontend interfaces from Figma designs using HTML, CSS and JS</li>
+            <li>Integrated backend REST APIs into frontend pages with fetch and async/await</li>
+            <li>Improved page load performance by optimising assets and reducing render-blocking CSS</li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="journey-col reveal">
       <h3>Education</h3>
       <div class="timeline">
-        <div class="titem"><div class="titem-year">2022 – 2026</div><div class="titem-title">B.Tech — Information Technology</div><div class="titem-sub">Arya College of Engineering, Jaipur</div><div class="titem-desc">Affiliated with RTU. Coursework: Data Structures, DBMS, Web Technologies, Networks, OOP.</div></div>
-        <div class="titem"><div class="titem-year">2022</div><div class="titem-title">12th — Science (PCM)</div><div class="titem-sub">Rajasthan Board</div><div class="titem-desc">Completed higher secondary with Physics, Chemistry, and Mathematics.</div></div>
+        <div class="titem">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem">
+            <div>
+              <div class="titem-title">B.Tech — Information Technology</div>
+              <div class="titem-sub" style="margin-bottom:0">Arya College of Engineering, Jaipur</div>
+            </div>
+            <span style="font-family:'Fira Code',monospace;font-size:.62rem;padding:3px 10px;background:rgba(74,240,196,.1);border:1px solid rgba(74,240,196,.25);color:var(--accent);border-radius:20px;white-space:nowrap">2022 – 2026</span>
+          </div>
+          <ul class="titem-bullets">
+            <li>Affiliated with Rajasthan Technical University (RTU)</li>
+            <li>Coursework: Data Structures, DBMS, Web Technologies, Networks, OOP</li>
+            <li>Built 2 production-grade projects during academic tenure</li>
+          </ul>
+        </div>
+        <div class="titem">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem">
+            <div>
+              <div class="titem-title">12th — Science (PCM)</div>
+              <div class="titem-sub" style="margin-bottom:0">Rajasthan Board</div>
+            </div>
+            <span style="font-family:'Fira Code',monospace;font-size:.62rem;padding:3px 10px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);color:var(--accent2);border-radius:20px;white-space:nowrap">2022</span>
+          </div>
+          <ul class="titem-bullets">
+            <li>Completed higher secondary with Physics, Chemistry and Mathematics</li>
+            <li>Rajasthan Board of Secondary Education</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
