@@ -77,13 +77,13 @@ section{position:relative;z-index:1}
 .sec-line{flex:1;height:1px;background:linear-gradient(to right,var(--border),transparent)}
 
 /* ── ABOUT ── */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:stretch}
 .about-text{background:var(--box-bg);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
 .about-text p{color:#c8dde8;line-height:1.9;font-size:.95rem;margin-bottom:1rem}
 .about-text p:last-child{margin-bottom:0}
 .about-text p b{color:#fff;font-weight:600}
-.about-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.acard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem;transition:all .3s}
+.about-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;height:100%}
+.acard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem;transition:all .3s;display:flex;flex-direction:column;justify-content:center}
 .acard:hover{border-color:rgba(74,240,196,.5);transform:translateY(-6px) scale(1.05)}
 .acard-icon{font-size:1.4rem}
 .acard-val{font-size:1.3rem;font-weight:700;color:var(--accent)}
