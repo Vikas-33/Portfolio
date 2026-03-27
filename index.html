@@ -1,907 +1,369 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        /* CSS Variables for Dark Theme (Default) */
-        :root {
-            --background-dark: #1a1a2e;
-            --background-light-dark: #16213e;
-            --text-light: #e0e0e0;
-            --text-accent: #0f3460;
-            --accent-color: #e94560;
-            --border-color: #0f3460;
-            --shadow-color: rgba(0, 0, 0, 0.4);
-            --font-primary: 'Montserrat', sans-serif;
-            --font-secondary: 'Roboto Mono', monospace;
-        }
-
-        /* Light Theme Variables */
-        body.light-theme {
-            --background-dark: #f0f2f5;
-            --background-light-dark: #ffffff;
-            --text-light: #333333;
-            --text-accent: #555555;
-            --accent-color: #007bff; /* A nice blue for light theme accent */
-            --border-color: #e0e0e0;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-        }
-
-        /* Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: var(--font-primary);
-            background-color: var(--background-dark);
-            color: var(--text-light);
-            line-height: 1.6;
-            scroll-behavior: smooth;
-            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        /* Header */
-        header {
-            height: auto;
-            background-color: var(--background-light-dark);
-            padding: 20px 0;
-            box-shadow: 0 2px 10px var(--shadow-color);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        /* NAVBAR SHRINK ON SCROLL */
-        header.shrink {
-            padding: 4px 0;
-            box-shadow: 0 4px 15px var(--shadow-color);
-            backdrop-filter: blur(6px);
-        }
-
-        header.shrink .logo {
-            font-size: 1.4em;
-        }
-
-
-        header .container {
-            flex-direction: column;
-            text-align: center;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 64px;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-        header.shrink .container {
-            min-height: 48px;
-            padding-top: 4px;
-            padding-bottom: 4px;
-        }
-        /* NAVBAR VISIBILITY */
-        header {
-            transition: transform 0.4s ease;
-        }
-
-        header.hidden {
-            transform: translateY(-100%);
-        }
-
-        /* TOGGLE BUTTON */
-        #nav-toggle-btn {
-            position: fixed;
-            top: 16px;              /* push it clearly into view */
-            right: 16px;
-            z-index: 9999;          /* higher than header & hero */
-            background-color: var(--accent-color);
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 48px;
-            height: 48px;
-            font-size: 22px;
-            cursor: pointer;
-            display: none;
-            box-shadow: 0 6px 14px var(--shadow-color);
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        #nav-toggle-btn.rotate {
-            transform: rotate(90deg);
-        }
-
-        /* Show button when navbar is hidden */
-        #nav-toggle-btn.show {
-            display: block;
-        }
-
-
-        .logo {
-            font-family: var(--font-secondary);
-            font-size: 1.8em;
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 700;
-            transition: color 0.3s ease;
-        }
-
-        nav ul {
-            list-style: none;
-            margin-top: 20px;
-        }
-
-        nav ul li {
-            display: inline-block;
-            margin-left: 30px;
-        }
-
-        nav ul li a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1em;
-            transition: font-size 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: var(--accent-color);
-        }
-        header.shrink nav ul li a {
-            font-size: 0.9em;
-        }
-
-
-        /* Theme Toggle Button */
-        #theme-toggle {
-            background: none;
-            border: 1px solid var(--border-color);
-            color: var(--text-light);
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.1em;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-            margin-left: 20px; /* Space from navigation */
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        #theme-toggle:hover {
-            background-color: var(--accent-color);
-            color: var(--background-light-dark);
-            border-color: var(--accent-color);
-        }
-
-        #theme-toggle i {
-            transition: color 0.3s ease;
-        }
-
-
-        /* Hero Section */
-        #hero {
-            background: linear-gradient(rgba(26, 26, 46, 0.8), rgba(26, 26, 46, 0.8)), url('hero-background-dark.jpg') no-repeat center center/cover;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            flex-direction: column;
-            color: var(--text-light);
-            transition: background 0.5s ease; /* Smooth transition for background image/gradient */
-        }
-
-        /* Light theme specific hero background */
-        body.light-theme #hero {
-            background: linear-gradient(rgba(240, 242, 245, 0.8), rgba(240, 242, 245, 0.8)), url('hero-background-light.jpg') no-repeat center center/cover;
-            background-size: cover;
-        }
-
-        /* Profile Image Styling */
-        .profile-image {
-            width: 150px; /* Adjust size as needed */
-            height: 150px;
-            border-radius: 50%; /* Makes it circular */
-            object-fit: cover; /* Ensures the image fills the circle without distortion */
-            margin-bottom: 20px; /* Adjust spacing below the image */
-            border: 3px solid var(--accent-color); /* Optional border */
-            box-shadow: 0 4px 8px var(--shadow-color); /* Optional shadow */
-            transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for theme change */
-        }
-
-        body.light-theme .profile-image {
-            border-color: var(--accent-color); /* Adjust light theme border if needed */
-            box-shadow: 0 4px 8px var(--shadow-color); /* Adjust light theme shadow if needed */
-        }
-
-
-        #hero h1 {
-            font-size: 3.5em;
-            margin-bottom: 15px;
-            color: var(--accent-color);
-            animation: fadeIn 1.5s ease-out;
-            transition: color 0.3s ease;
-        }
-
-        #hero p {
-            font-size: 1.5em;
-            margin-bottom: 30px;
-            font-family: var(--font-secondary);
-            animation: fadeIn 2s ease-out;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--text-light);
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 8px var(--shadow-color);
-        }
-
-        .btn:hover {
-            background-color: #ff6b81; /* Slightly lighter accent for dark theme */
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
-        }
-
-        body.light-theme .btn:hover {
-            background-color: #0056b3; /* Darker blue for light theme */
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-
-
-        /* Sections General Styling */
-        section {
-            padding: 80px 0;
-            border-bottom: 1px solid var(--border-color);
-            transition: border-color 0.3s ease;
-        }
-
-        section:last-of-type {
-            border-bottom: none;
-        }
-
-        section h2 {
-            font-size: 2.5em;
-            margin-bottom: 40px;
-            color: var(--accent-color);
-            text-align: center;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        section h2::after {
-            content: '';
-            position: absolute;
-            width: 80px;;
-            height: 4px;
-            background-color: var(--accent-color);
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: -10px;
-            border-radius: 2px;
-            transition: background-color 0.3s ease;
-        }
-
-        /* About Section */
-        #about p {
-            font-size: 1.1em;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 25px;
-            padding: 0 20px;
-        }
-
-        .skill-item {
-            background-color: var(--background-light-dark);
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 15px var(--shadow-color);
-            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            border: 1px solid var(--border-color);
-        }
-
-        .skill-item:hover {
-            transform: translateY(-5px);
-            background-color: #2a3b5a; /* Slightly lighter for dark theme */
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-        }
-
-        body.light-theme .skill-item:hover {
-            background-color: #e9ecef; /* Slightly darker for light theme */
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .skill-item i {
-            font-size: 3em;
-            color: var(--accent-color);
-            margin-bottom: 15px;
-            transition: color 0.3s ease;
-        }
-
-        .skill-item h3 {
-            font-size: 1.3em;
-            color: var(--text-light);
-            transition: color 0.3s ease;
-        }
-
-        /* Portfolio Section */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            padding: 0 20px;
-        }
-
-        .portfolio-item {
-            background-color: var(--background-light-dark);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px var(--shadow-color);
-            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            border: 1px solid var(--border-color);
-        }
-
-        .portfolio-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-        }
-
-        body.light-theme .portfolio-item:hover {
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .portfolio-item img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            display: block;
-            border-bottom: 1px solid var(--border-color);
-            transition: border-color 0.3s ease;
-        }
-
-        .portfolio-info {
-            padding: 20px;
-        }
-
-        .portfolio-info h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            color: var(--accent-color);
-            transition: color 0.3s ease;
-        }
-
-        .portfolio-info p {
-            font-size: 0.95em;
-            color: var(--text-light);
-            margin-bottom: 15px;
-            transition: color 0.3s ease;
-        }
-
-        .portfolio-info .btn {
-            font-size: 0.9em;
-            padding: 8px 15px;
-        }
-
-        /* Contact Section */
-        #contact .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: var(--background-light-dark);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px var(--shadow-color);
-            border: 1px solid var(--border-color);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-
-        .contact-form label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text-light);
-            transition: color 0.3s ease;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            background-color: var(--background-dark);
-            color: var(--text-light);
-            font-family: var(--font-primary);
-            font-size: 1em;
-            outline: none;
-            transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            border-color: var(--accent-color);
-        }
-
-        .contact-form textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .contact-form button {
-            background-color: var(--accent-color);
-            color: var(--text-light);
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1.1em;
-            transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
-            width: 100%;
-        }
-
-        .contact-form button:hover {
-            background-color: #ff6b81;
-            transform: translateY(-3px);
-        }
-
-        body.light-theme .contact-form button:hover {
-            background-color: #0056b3;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--background-light-dark);
-            color: var(--text-light);
-            text-align: center;
-            padding: 30px 0;
-            border-top: 1px solid var(--border-color);
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-
-        .social-links {
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            color: var(--text-light);
-            font-size: 1.8em;
-            margin: 0 15px;
-            transition: color 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: var(--accent-color);
-        }
-
-        /* Keyframe Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            #hero {
-                margin-top: -60px;
-            }
-            body.nav-hidden main {
-                padding-top: 0 !important;
-            }
-            header.shrink .container {
-                padding-top: 5px;
-                padding-bottom: 5px;
-            }
-
-            header.shrink nav ul {
-                margin-top: 5px;
-                
-            }
-
-            header.shrink nav ul li {
-                margin: 6px 0;
-            }
-
-            header .container {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            nav ul {
-                margin-top: 20px;
-            }
-
-            nav ul li {
-                display: block;
-                margin: 10px 0;
-            }
-
-            /* Adjust theme toggle for smaller screens */
-            #theme-toggle {
-                margin-top: 15px;
-                margin-left: 0;
-            }
-
-            #hero h1 {
-                font-size: 2.5em;
-            }
-
-            #hero p {
-                font-size: 1.2em;
-            }
-
-            section {
-                padding: 60px 0;
-            }
-
-            section h2 {
-                font-size: 2em;
-            }
-
-            .skills-grid, .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-
-            /* Adjust profile image size on smaller screens if in Hero */
-            #hero .profile-image {
-                width: 120px;
-                height: 120px;
-            }
-
-            /* Adjust profile image size on smaller screens if in About */
-            #about .profile-image {
-                width: 120px;
-                height: 120px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo {
-                font-size: 1.5em;
-            }
-
-            .btn {
-                padding: 10px 20px;
-                font-size: 0.9em;
-            }
-
-            .skill-item {
-                padding: 20px;
-            }
-
-            .skill-item i {
-                font-size: 2.5em;
-            }
-
-            .portfolio-info h3 {
-                font-size: 1.3em;
-            }
-
-            .contact-form {
-                padding: 25px;
-            }
-
-            /* Further adjust profile image size on very small screens */
-            #hero .profile-image,
-            #about .profile-image {
-                width: 100px;
-                height: 100px;
-            }
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Vikas Kumar Kumawat — Backend Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#060d13;--bg2:#0c1820;--bg3:#111f2a;--card:#0f1e28;
+  --accent:#4af0c4;--accent2:#38bdf8;--accent3:#f472b6;
+  --text:#f0f8ff;--muted:#8ab4c8;--border:#1c3345;
+  --box-bg:rgba(15,30,40,0.85);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(74,240,196,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(74,240,196,.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+
+/* ── CURSOR STYLES ── */
+#cur{position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s}
+#cur-ring{position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+
+
+
+/* Gradient Circle */
+body.cursor-grad #cur{width:28px;height:28px;background:conic-gradient(var(--accent),var(--accent2),var(--accent3),var(--accent));border-radius:50%;opacity:.85;animation:rotateCursor 1.5s linear infinite}
+@keyframes rotateCursor{to{transform:translate(-50%,-50%) rotate(360deg)}}
+body.cursor-grad #cur-ring{width:8px;height:8px;background:#fff;border-radius:50%;opacity:.9}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1rem 5rem;background:rgba(6,13,19,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Fira Code',monospace;font-size:.9rem;color:var(--accent)}
+.logo span{color:var(--muted)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:'Fira Code',monospace;font-size:.75rem;color:var(--muted);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-btn{font-family:'Fira Code',monospace;font-size:.72rem;padding:.5rem 1.2rem;background:transparent;border:1px solid var(--accent);color:var(--accent);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:all .2s}
+.nav-btn:hover{background:rgba(74,240,196,.15);transform:translateY(-3px) scale(1.06)}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr auto;align-items:center;gap:4rem;padding:8rem 5rem 4rem;position:relative;z-index:1;max-width:1200px;margin:0 auto}
+.hero-badge{font-family:'Fira Code',monospace;font-size:.72rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:10px;animation:bounceIn .7s cubic-bezier(.68,-.55,.265,1.55) both}
+.hero-badge::before{content:'';display:inline-block;width:28px;height:1px;background:var(--accent)}
+.hero-dot{width:7px;height:7px;background:var(--accent);border-radius:50%;display:inline-block;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(74,240,196,.4)}50%{box-shadow:0 0 0 8px rgba(74,240,196,0)}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.3) translateY(30px)}60%{transform:scale(1.15)}100%{opacity:1;transform:scale(1)}}
+.hero-hi{font-size:1.1rem;color:var(--muted);margin-bottom:.4rem;animation:fadeSlide .6s .2s both}
+.hero-name{font-size:clamp(2.8rem,5.5vw,4.5rem);font-weight:700;line-height:1.05;letter-spacing:-.02em;margin-bottom:.8rem;animation:fadeSlide .6s .35s both;color:#fff}
+.hero-name span{color:var(--accent)}
+@keyframes fadeSlide{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+.hero-role{font-family:'Fira Code',monospace;font-size:.95rem;color:var(--accent2);margin-bottom:1.5rem;animation:fadeSlide .6s .5s both}
+.hero-role::before{content:'> ';color:var(--accent)}
+.blink{animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem;animation:fadeSlide .6s .8s both}
+.btn-p{font-family:'Fira Code',monospace;font-size:.75rem;padding:.75rem 1.6rem;background:var(--accent);color:#060d13;border:none;text-decoration:none;letter-spacing:.08em;text-transform:uppercase;font-weight:500;transition:all .25s;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.btn-p:hover{background:#6ef5d0;transform:translateY(-4px) scale(1.06)}
+.btn-s{font-family:'Fira Code',monospace;font-size:.75rem;padding:.75rem 1.6rem;background:transparent;color:var(--text);border:1px solid var(--border);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:all .25s}
+.btn-s:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-4px) scale(1.06)}
+.hero-stats{display:flex;gap:2.5rem;padding-top:2rem;border-top:1px solid var(--border);animation:fadeSlide .6s .95s both}
+.stat-n{font-size:1.8rem;font-weight:700;color:var(--accent);line-height:1}
+.stat-l{font-family:'Fira Code',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
+.hero-photo{position:relative;flex-shrink:0;animation:bounceIn .8s .4s both}
+.photo-frame{width:220px;height:220px;border-radius:50%;border:2px solid var(--accent);padding:4px;position:relative}
+.photo-inner{width:100%;height:100%;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:5rem}
+.photo-ring{position:absolute;inset:-16px;border-radius:50%;border:1px dashed rgba(74,240,196,.25);animation:spin 20s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.photo-dot{position:absolute;width:12px;height:12px;background:var(--accent);border-radius:50%;border:2px solid var(--bg);bottom:10px;right:10px}
+
+/* ── SECTIONS ── */
+section{position:relative;z-index:1}
+.sec-wrap{max-width:1100px;margin:0 auto;padding:5rem}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:3rem}
+.sec-num{font-family:'Fira Code',monospace;font-size:.72rem;color:var(--accent);letter-spacing:.1em}
+.sec-title{font-size:1.9rem;font-weight:700;letter-spacing:-.02em;color:#fff}
+.sec-line{flex:1;height:1px;background:linear-gradient(to right,var(--border),transparent)}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.about-text{background:var(--box-bg);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
+.about-text p{color:#c8dde8;line-height:1.9;font-size:.95rem;margin-bottom:1rem}
+.about-text p:last-child{margin-bottom:0}
+.about-text p b{color:#fff;font-weight:600}
+.about-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.acard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem;transition:all .3s}
+.acard:hover{border-color:rgba(74,240,196,.5);transform:translateY(-6px) scale(1.05)}
+.acard-icon{font-size:1.4rem}
+.acard-val{font-size:1.3rem;font-weight:700;color:var(--accent)}
+.acard-label{font-family:'Fira Code',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.info-list{margin-top:1rem;display:flex;flex-direction:column;gap:8px}
+.info-item{display:flex;gap:10px;padding:.75rem 1rem;background:var(--card);border:1px solid var(--border);border-left:2px solid var(--accent);border-radius:0 8px 8px 0}
+.info-key{font-family:'Fira Code',monospace;font-size:.65rem;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;min-width:72px;padding-top:2px}
+.info-val{font-size:.87rem;color:#e8f4ff;line-height:1.5}
+
+/* ── SKILLS ── */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.skill-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem .9rem;text-align:center;transition:all .3s;cursor:default;position:relative;overflow:hidden}
+.skill-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .25s}
+.skill-card:hover{border-color:rgba(74,240,196,.5);transform:translateY(-8px) scale(1.06);box-shadow:0 12px 35px rgba(74,240,196,.15)}
+.skill-card:hover::after{transform:scaleX(1)}
+.sk-icon{font-size:1.5rem;margin-bottom:6px}
+.sk-name{font-family:'Fira Code',monospace;font-size:.74rem;color:#e8f4ff;letter-spacing:.04em;font-weight:500}
+.sk-level{font-family:'Fira Code',monospace;font-size:.62rem;color:var(--muted);margin-top:4px}
+
+/* ── PROJECTS ── */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.8rem;position:relative;overflow:hidden;transition:all .3s;display:flex;flex-direction:column;gap:1rem}
+.proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--accent),var(--accent2));transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.proj-card:hover{border-color:rgba(74,240,196,.3);transform:translateY(-10px) scale(1.02);box-shadow:0 20px 50px rgba(74,240,196,.12)}
+.proj-card:hover::before{transform:scaleX(1)}
+.proj-num{font-family:'Fira Code',monospace;font-size:.65rem;color:var(--accent);letter-spacing:.15em}
+.proj-title{font-size:1.15rem;font-weight:700;color:#fff}
+.proj-desc{font-size:.88rem;color:#c8dde8;line-height:1.8;background:rgba(0,0,0,.2);padding:.8rem;border-radius:8px}
+.proj-tags{display:flex;flex-wrap:wrap;gap:6px}
+.ptag{font-family:'Fira Code',monospace;font-size:.65rem;padding:3px 10px;background:var(--bg3);border:1px solid var(--border);color:#8ab4c8;border-radius:20px}
+.proj-links{display:flex;gap:1rem;margin-top:auto}
+.plink{font-family:'Fira Code',monospace;font-size:.7rem;color:var(--accent2);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:all .2s}
+.plink:hover{color:var(--accent);transform:translateX(4px)}
+.wip-badge{font-family:'Fira Code',monospace;font-size:.62rem;padding:2px 8px;background:rgba(244,114,182,.15);border:1px solid rgba(244,114,182,.3);color:var(--accent3);border-radius:20px}
+
+/* ── JOURNEY ── */
+.journey-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.journey-col h3{font-family:'Fira Code',monospace;font-size:.72rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px}
+.journey-col h3::before{content:'';width:20px;height:1px;background:var(--accent)}
+.timeline{display:flex;flex-direction:column;gap:1rem}
+.titem{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;transition:all .25s}
+.titem:hover{border-color:rgba(74,240,196,.3);transform:translateX(6px)}
+.titem-year{font-family:'Fira Code',monospace;font-size:.65rem;color:var(--accent);margin-bottom:.4rem}
+.titem-title{font-size:.97rem;font-weight:600;color:#fff;margin-bottom:.2rem}
+.titem-sub{font-size:.83rem;color:var(--accent2);margin-bottom:.6rem}
+.titem-desc{font-size:.82rem;color:#c8dde8;line-height:1.75}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:3rem;align-items:start}
+.contact-tagline{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;letter-spacing:-.02em;line-height:1.2;margin-bottom:1rem;color:#fff}
+.contact-tagline span{color:var(--accent)}
+.contact-sub{font-family:'Fira Code',monospace;font-size:.8rem;color:var(--muted);margin-bottom:2rem}
+.contact-info{display:flex;flex-direction:column;gap:.7rem}
+.cinfo-item{display:flex;align-items:center;gap:12px;padding:.9rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all .25s}
+.cinfo-item:hover{border-color:var(--accent);transform:translateX(8px) scale(1.02)}
+.cinfo-icon{font-size:1rem;min-width:20px;text-align:center}
+.cinfo-text{font-size:.85rem;color:#e8f4ff}
+.cinfo-label{font-family:'Fira Code',monospace;font-size:.6rem;color:var(--muted)}
+.contact-form{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem}
+.form-group label{font-family:'Fira Code',monospace;font-size:.68rem;color:#8ab4c8;letter-spacing:.08em;text-transform:uppercase}
+.form-group input,.form-group textarea{background:var(--bg3);border:1px solid var(--border);color:#f0f8ff;font-family:'Space Grotesk',sans-serif;font-size:.9rem;padding:.75rem 1rem;border-radius:8px;outline:none;transition:border-color .2s;resize:none}
+.form-group input::placeholder,.form-group textarea::placeholder{color:#3a5a6e}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{height:120px}
+.form-submit{width:100%;font-family:'Fira Code',monospace;font-size:.78rem;padding:.85rem;background:var(--accent);color:#060d13;border:none;letter-spacing:.1em;text-transform:uppercase;font-weight:600;cursor:pointer;transition:all .25s;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.form-submit:hover{background:#6ef5d0;transform:translateY(-3px) scale(1.03)}
+.form-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.form-msg{font-family:'Fira Code',monospace;font-size:.75rem;margin-top:.8rem;padding:.7rem 1rem;border-radius:8px;display:none}
+.form-msg.success{display:block;background:rgba(74,240,196,.1);border:1px solid rgba(74,240,196,.3);color:var(--accent)}
+.form-msg.error{display:block;background:rgba(244,114,182,.1);border:1px solid rgba(244,114,182,.3);color:var(--accent3)}
+footer{border-top:1px solid var(--border);padding:2rem 5rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;max-width:1200px;margin:0 auto}
+.footer-l,.footer-r{font-family:'Fira Code',monospace;font-size:.68rem;color:var(--muted)}
+.footer-r span{color:var(--accent)}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+@media(max-width:900px){nav{padding:1rem 1.5rem}.nav-links{display:none}#hero{grid-template-columns:1fr;padding:7rem 1.5rem 3rem}.hero-photo{display:none}.sec-wrap{padding:4rem 1.5rem}.about-grid,.proj-grid,.journey-grid,.contact-grid,.form-row{grid-template-columns:1fr}footer{padding:1.5rem;flex-direction:column;gap:6px;text-align:center}#cursor-switcher{display:none}}
+</style>
 </head>
-<body>
-    <header>
-        
+<body class="cursor-grad">
+<div id="cur"></div><div id="cur-ring"></div>
 
-        <div class="container">
-            <a href="#" class="logo">Vikas.dev</a>
-            <nav>
-                <ul>
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-            <button id="theme-toggle" aria-label="Toggle dark/light theme">
-                <i class="fas fa-sun"></i>
-            </button>
+
+<nav>
+  <div class="logo"><span>&lt;</span>VKK<span>/&gt;</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li><li><a href="#journey">Journey</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://github.com/Vikas-33" target="_blank" class="nav-btn">GitHub ↗</a>
+</nav>
+
+<section id="hero" style="z-index:1;position:relative">
+  <div>
+    <div class="hero-badge"><span class="hero-dot"></span>Open to opportunities — 2026</div>
+    <p class="hero-hi">Hi, I'm</p>
+    <h1 class="hero-name">Vikas Kumar<br><span>Kumawat</span></h1>
+    <div class="hero-role">Backend Developer &amp; Python Enthusiast<span class="blink">_</span></div>
+    <p class="hero-bio">I'm a final-year IT student from Jaipur specializing in Python and Django development. I've built multiple projects, completed internships, and I'm eager to grow as a backend developer in 2026.</p>
+    <div class="hero-ctas"><a href="#projects" class="btn-p">View My Work →</a><a href="#contact" class="btn-s">Hire Me</a></div>
+    <div class="hero-stats">
+      <div><div class="stat-n">2+</div><div class="stat-l">Projects Built</div></div>
+      <div><div class="stat-n">Django</div><div class="stat-l">Core Stack</div></div>
+      <div><div class="stat-n">2026</div><div class="stat-l">Graduating</div></div>
+      <div><div class="stat-n">Jaipur</div><div class="stat-l">Based In</div></div>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <div class="photo-frame">
+      <div class="photo-inner">
+        <img src="images/profile.jpeg" alt="Vikas Kumar Kumawat"
+          style="width:100%;height:100%;border-radius:50%;object-fit:cover;"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <span style="display:none;align-items:center;justify-content:center;font-size:5rem;width:100%;height:100%">👨‍💻</span>
+      </div>
+      <div class="photo-ring"></div><div class="photo-dot"></div>
+    </div>
+  </div>
+</section>
+
+<section id="about"><div class="sec-wrap">
+  <div class="sec-head reveal"><span class="sec-num">01.</span><h2 class="sec-title">About Me</h2><div class="sec-line"></div></div>
+  <div class="about-grid">
+    <div class="reveal">
+      <div class="about-text">
+        <p>I'm <b>Vikas Kumar Kumawat</b>, a final-year IT student at <b>Arya College of Engineering</b>, affiliated with <b>Rajasthan Technical University (RTU)</b>.</p>
+        <p>My focus is <b>backend development with Python and Django</b> — building scalable web applications and REST APIs that solve real problems.</p>
+        <p>I've built an e-commerce platform and an ongoing college management system. Actively looking for <b>backend developer roles in 2026</b>.</p>
+        <div class="info-list" style="margin-top:1.5rem">
+          <div class="info-item"><span class="info-key">College</span><span class="info-val">Arya College of Engineering, Jaipur</span></div>
+          <div class="info-item"><span class="info-key">University</span><span class="info-val">RTU — Rajasthan Technical University</span></div>
+          <div class="info-item"><span class="info-key">Field</span><span class="info-val">Information Technology (Final Year)</span></div>
+          <div class="info-item"><span class="info-key">Status</span><span class="info-val" style="color:var(--accent)">✓ Open to Opportunities</span></div>
         </div>
-    </header>
-    <button id="nav-toggle-btn" aria-label="Toggle navigation">
-    ☰
-</button>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="about-cards">
+        <div class="acard"><div class="acard-icon">📦</div><div class="acard-val">2+</div><div class="acard-label">Projects Built</div></div>
+        <div class="acard"><div class="acard-icon">🎓</div><div class="acard-val">B.Tech</div><div class="acard-label">Final Year</div></div>
+        <div class="acard"><div class="acard-icon">🐍</div><div class="acard-val">Python</div><div class="acard-label">Primary Language</div></div>
+        <div class="acard"><div class="acard-icon">🚀</div><div class="acard-val">2026</div><div class="acard-label">Graduating</div></div>
+      </div>
+    </div>
+  </div>
+</div></section>
 
-    <main>
-        <section id="hero">
-            <div class="container">
-                <img src="images/profile.jpeg" alt="Your Profile" class="profile-image">
-                <h1>Hi, I'm Vikas kumar kumawat </h1>
-                <p>A Passionate Web Developer & Designer</p>
-                <a href="#portfolio" class="btn">View My Work</a>
-            </div>
-        </section>
+<section id="skills"><div class="sec-wrap">
+  <div class="sec-head reveal"><span class="sec-num">02.</span><h2 class="sec-title">My Skills</h2><div class="sec-line"></div></div>
+  <p class="reveal" style="font-size:.85rem;color:var(--muted);font-family:'Fira Code',monospace;margin-bottom:2rem">// backend-focused · full-stack capable · always learning</p>
+  <div class="skills-grid reveal">
+    <div class="skill-card"><div class="sk-icon">🐍</div><div class="sk-name">Python</div><div class="sk-level">Advanced</div></div>
+    <div class="skill-card"><div class="sk-icon">🎯</div><div class="sk-name">Django</div><div class="sk-level">Advanced</div></div>
+    <div class="skill-card"><div class="sk-icon">🌐</div><div class="sk-name">HTML/CSS</div><div class="sk-level">Intermediate</div></div>
+    <div class="skill-card"><div class="sk-icon">⚡</div><div class="sk-name">JavaScript</div><div class="sk-level">Intermediate</div></div>
+    <div class="skill-card"><div class="sk-icon">🗄️</div><div class="sk-name">SQL</div><div class="sk-level">Intermediate</div></div>
+    <div class="skill-card"><div class="sk-icon">☕</div><div class="sk-name">Java</div><div class="sk-level">Intermediate</div></div>
+    <div class="skill-card"><div class="sk-icon">⚙️</div><div class="sk-name">C / C++</div><div class="sk-level">Intermediate</div></div>
+    <div class="skill-card"><div class="sk-icon">🔗</div><div class="sk-name">REST APIs</div><div class="sk-level">Advanced</div></div>
+    <div class="skill-card"><div class="sk-icon">🐘</div><div class="sk-name">PostgreSQL</div><div class="sk-level">Intermediate</div></div>
+    <div class="skill-card"><div class="sk-icon">🐙</div><div class="sk-name">Git & GitHub</div><div class="sk-level">Intermediate</div></div>
+  </div>
+</div></section>
 
-        <section id="about">
-            <div class="container">
-                <h2>About Me</h2>
-                <p>
-                    Hello! I'm a dedicated and creative web developer with a strong passion for building beautiful, responsive, and user-friendly websites and applications. With expertise in front-end and a growing understanding of back-end technologies, I love transforming ideas into reality through code. My journey in web development began with a curiosity for how things work on the internet, and it has since evolved into a commitment to continuous learning and problem-solving.
-                    I am always eager to learn new technologies and improve my skills to deliver high-quality digital experiences.
-                </p>
-            </div>
-        </section>
+<section id="projects"><div class="sec-wrap">
+  <div class="sec-head reveal"><span class="sec-num">03.</span><h2 class="sec-title">Featured Projects</h2><div class="sec-line"></div></div>
+  <p class="reveal" style="font-size:.85rem;color:var(--muted);font-family:'Fira Code',monospace;margin-bottom:2rem">// real-world apps — built with purpose</p>
+  <div class="proj-grid">
+    <div class="proj-card reveal">
+      <!-- <img src="images/ecommerce.png" alt="E-Commerce Platform" style="width:100%;height:160px;object-fit:cover;border-radius:8px;border:1px solid var(--border)"/> -->
+      <div class="proj-num">PROJECT // 01 · Full-Stack App</div>
+      <div class="proj-title">E-Commerce Platform</div>
+      <p class="proj-desc">A production-ready e-commerce web app built with Django — featuring product listings, cart management, user authentication, order processing, and payment integration.</p>
+      <div class="proj-tags"><span class="ptag">Django</span><span class="ptag">Python</span><span class="ptag">SQL</span><span class="ptag">HTML/CSS</span><span class="ptag">JavaScript</span><span class="ptag">REST API</span></div>
+      <div class="proj-links"><a href="https://github.com/Vikas-33" target="_blank" class="plink">⌥ View Code</a></div>
+    </div>
+    <div class="proj-card reveal">
+      <!-- <img src="images/college-mgmt.png" alt="College Management System" style="width:100%;height:160px;object-fit:cover;border-radius:8px;border:1px solid var(--border)"/> -->
+      <div class="proj-num">PROJECT // 02 · In Development</div>
+      <div class="proj-title" style="display:flex;align-items:center;gap:10px">College Management System <span class="wip-badge">⬤ In Progress</span></div>
+      <p class="proj-desc">A smart Django-based college management tool to streamline student data, attendance tracking, timetable scheduling, and academic workflows.</p>
+      <div class="proj-tags"><span class="ptag">Django</span><span class="ptag">Python</span><span class="ptag">PostgreSQL</span><span class="ptag">REST API</span><span class="ptag">JavaScript</span></div>
+      <div class="proj-links"><a href="https://github.com/Vikas-33" target="_blank" class="plink">⌥ View Code</a></div>
+    </div>
+  </div>
+</div></section>
 
-        <section id="skills">
-            <div class="container">
-                <h2>Skills</h2>
-                <div class="skills-grid">
-                    <div class="skill-item">
-                        <i class="fab fa-html5"></i>
-                        <h3>HTML5</h3>
-                    </div>
-                    <div class="skill-item">
-                        <i class="fab fa-css3-alt"></i>
-                        <h3>CSS3</h3>
-                    </div>
-                    <div class="skill-item">
-                        <i class="fab fa-js"></i>
-                        <h3>JavaScript</h3>
-                    </div>
-                    <div class="skill-item">
-                        <i class="fab fa-react"></i>
-                        <h3>React</h3>
-                    </div>
-                    <div class="skill-item">
-                        <i class="fab fa-node-js"></i>
-                        <h3>Node.js</h3>
-                    </div>
-                    <div class="skill-item">
-                        <i class="fas fa-database"></i>
-                        <h3>Databases</h3>
-                    </div>
-                    <div class="skill-item">
-                        <i class="fab fa-git-alt"></i>
-                        <h3>Git & GitHub</h3>
-                    </div>
-                    <div class="skill-item">
-                        <i class="fas fa-mobile-alt"></i>
-                        <h3>Responsive Design</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
+<section id="journey"><div class="sec-wrap">
+  <div class="sec-head reveal"><span class="sec-num">04.</span><h2 class="sec-title">Journey</h2><div class="sec-line"></div></div>
+  <div class="journey-grid">
+    <div class="journey-col reveal">
+      <h3>Work Experience</h3>
+      <div class="timeline">
+        <div class="titem"><div class="titem-year">2025 – Present</div><div class="titem-title">Backend Developer Intern</div><div class="titem-sub">Python · Django · REST APIs</div><div class="titem-desc">Built backend APIs, worked with databases, and delivered features for web applications using Django and Python.</div></div>
+        <div class="titem"><div class="titem-year">2024</div><div class="titem-title">Web Development Intern</div><div class="titem-sub">HTML · CSS · JavaScript</div><div class="titem-desc">Developed responsive frontend interfaces and integrated backend APIs for client projects.</div></div>
+      </div>
+    </div>
+    <div class="journey-col reveal">
+      <h3>Education</h3>
+      <div class="timeline">
+        <div class="titem"><div class="titem-year">2022 – 2026</div><div class="titem-title">B.Tech — Information Technology</div><div class="titem-sub">Arya College of Engineering, Jaipur</div><div class="titem-desc">Affiliated with RTU. Coursework: Data Structures, DBMS, Web Technologies, Networks, OOP.</div></div>
+        <div class="titem"><div class="titem-year">2022</div><div class="titem-title">12th — Science (PCM)</div><div class="titem-sub">Rajasthan Board</div><div class="titem-desc">Completed higher secondary with Physics, Chemistry, and Mathematics.</div></div>
+      </div>
+    </div>
+  </div>
+</div></section>
 
-        <section id="portfolio">
-            <div class="container">
-                <h2>My Portfolio</h2>
-                <div class="portfolio-grid">
-                    <div class="portfolio-item">
-                        <img src="images/E-commerce.png" alt="Project One">
-                        <div class="portfolio-info">
-                            <h3>Project Alpha</h3>
-                            <p>A modern e-commerce platform built with React and Node.js.</p>
-                            <a href="#" class="btn" target="_blank">View Project</a>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <img src="images/to-do-list.png" alt="Project Two">
-                        <div class="portfolio-info">
-                            <h3>Project Beta</h3>
-                            <p>A minimalist personal blog site with a custom CMS.</p>
-                            <a href="#" class="btn" target="_blank">View Project</a>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <img src="image3.jpg" alt="Project Three">
-                        <div class="portfolio-info">
-                            <h3>Project Gamma</h3>
-                            <p>An interactive data visualization dashboard using D3.js.</p>
-                            <a href="#" class="btn" target="_blank">View Project</a>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <img src="image4.jpg" alt="Project Four">
-                        <div class="portfolio-info">
-                            <h3>Project Delta</h3>
-                            <p>A mobile-first landing page for a SaaS product.</p>
-                            <a href="#" class="btn" target="_blank">View Project</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact">
-            <div class="container">
-                <h2>Get In Touch</h2>
-                <form class="contact-form">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
-
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="message" required></textarea>
-
-                    <button type="submit" class="btn">Send Message</button>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; <span id="current-year"></span> Your Name. All rights reserved.</p>
-            <div class="social-links">
-                <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="#" target="_blank" aria-label="Twitter" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
-            </div>
+<section id="contact"><div class="sec-wrap">
+  <div class="sec-head reveal"><span class="sec-num">05.</span><h2 class="sec-title">Get In Touch</h2><div class="sec-line"></div></div>
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="contact-tagline">Let's build something<br><span>great together.</span></div>
+      <p class="contact-sub">// open to internships, jobs &amp; collaborations</p>
+      <div class="contact-info">
+        <a href="mailto:vikasku.kal@gmail.com" class="cinfo-item"><span class="cinfo-icon">✉</span><div><div class="cinfo-text">vikasku.kal@gmail.com</div><div class="cinfo-label">Email</div></div></a>
+        <a href="https://www.linkedin.com/in/vikas-kuma/" target="_blank" class="cinfo-item"><span class="cinfo-icon">in</span><div><div class="cinfo-text">linkedin.com/in/vikas-kuma</div><div class="cinfo-label">LinkedIn</div></div></a>
+        <a href="https://github.com/Vikas-33" target="_blank" class="cinfo-item"><span class="cinfo-icon">⌥</span><div><div class="cinfo-text">github.com/Vikas-33</div><div class="cinfo-label">GitHub</div></div></a>
+        <div class="cinfo-item" style="cursor:default"><span class="cinfo-icon">📍</span><div><div class="cinfo-text">Jaipur, Rajasthan, India</div><div class="cinfo-label">Location</div></div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group"><label>Your Name</label><input type="text" id="from_name" placeholder="John Doe" required/></div>
+          <div class="form-group"><label>Email Address</label><input type="email" id="from_email" placeholder="you@example.com" required/></div>
         </div>
-    </footer>
+        <div class="form-group"><label>Subject</label><input type="text" id="subject" placeholder="Job opportunity / Collaboration / Hello!"/></div>
+        <div class="form-group"><label>Message</label><textarea id="message" placeholder="Tell me about the opportunity..."></textarea></div>
+        <button class="form-submit" id="send-btn" onclick="sendEmail()">Send Message →</button>
+        <div class="form-msg" id="form-success">✓ Message sent! I'll get back to you soon.</div>
+        <div class="form-msg" id="form-error">✗ Something went wrong. Email me at vikasku.kal@gmail.com</div>
+      </div>
+    </div>
+  </div>
+</div></section>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+<footer>
+  <div class="footer-l">© 2026 Vikas Kumar Kumawat</div>
+  <div class="footer-r">built with <span>♥</span> &amp; Django dreams · Jaipur</div>
+</footer>
 
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+const EMAILJS_PUBLIC_KEY='slZRQZYkGloFdKW4w';
+const EMAILJS_SERVICE_ID='service_arfbivp';
+const EMAILJS_TEMPLATE_ID='template_6eyhwhh';
+emailjs.init(EMAILJS_PUBLIC_KEY);
 
-        // Update copyright year dynamically
-        document.getElementById('current-year').textContent = new Date().getFullYear();
+function sendEmail(){
+  const name=document.getElementById('from_name').value.trim();
+  const email=document.getElementById('from_email').value.trim();
+  const subject=document.getElementById('subject').value.trim();
+  const message=document.getElementById('message').value.trim();
+  const btn=document.getElementById('send-btn');
+  const ok=document.getElementById('form-success');
+  const err=document.getElementById('form-error');
+  if(!name||!email||!message){err.textContent='✗ Please fill Name, Email and Message.';err.style.display='block';return;}
+  btn.disabled=true;btn.textContent='Sending...';ok.style.display='none';err.style.display='none';
+  emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_TEMPLATE_ID,{from_name:name,from_email:email,subject:subject||'Portfolio Contact',message,to_email:'vikasku.kal@gmail.com'})
+  .then(()=>{btn.textContent='✓ Sent!';ok.style.display='block';['from_name','from_email','subject','message'].forEach(id=>document.getElementById(id).value='');setTimeout(()=>{btn.disabled=false;btn.textContent='Send Message →';},4000);})
+  .catch(()=>{btn.disabled=false;btn.textContent='Send Message →';err.style.display='block';});
+}
 
-        // Theme Switcher Logic
-        const themeToggle = document.getElementById('theme-toggle');
-        const body = document.body;
-        const themeIcon = themeToggle.querySelector('i');
-        const heroSection = document.getElementById('hero');
-
-        // Function to set hero background based on theme
-        function setHeroBackground(isLight) {
-            if (isLight) {
-                heroSection.style.backgroundImage = 'linear-gradient(rgba(240, 242, 245, 0.8), rgba(240, 242, 245, 0.8)), url(\'hero-background-light.jpg\')';
-            } else {
-                heroSection.style.backgroundImage = 'linear-gradient(rgba(26, 26, 46, 0.8), rgba(26, 26, 46, 0.8)), url(\'hero-background-dark.jpg\')';
-            }
-        }
-
-        // Check for saved theme preference or system preference
-        const savedTheme = localStorage.getItem('theme');
-        const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-
-        if (savedTheme === 'light') {
-            body.classList.add('light-theme');
-            themeIcon.classList.remove('fa-sun');
-            themeIcon.classList.add('fa-moon');
-            setHeroBackground(true);
-        } else if (savedTheme === null && prefersLight) {
-            // If no saved theme, and system prefers light, set light theme
-            body.classList.add('light-theme');
-            themeIcon.classList.remove('fa-sun');
-            themeIcon.classList.add('fa-moon');
-            setHeroBackground(true);
-        } else {
-            // Default to dark theme
-            body.classList.remove('light-theme');
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-            setHeroBackground(false);
-        }
-
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('light-theme');
-            if (body.classList.contains('light-theme')) {
-                localStorage.setItem('theme', 'light');
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-                setHeroBackground(true);
-            } else {
-                localStorage.setItem('theme', 'dark');
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-                setHeroBackground(false);
-            }
-        });
-
-        // Optional: Simple form submission handler (for demonstration, in real projects use backend)
-        const contactForm = document.querySelector('.contact-form');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault(); // Prevent default form submission
-
-                // In a real application, you would send this data to a backend server
-                // using fetch() or XMLHttpRequest.
-                alert('Thank you for your message! I will get back to you soon.');
-                this.reset(); // Clear the form
-            });
-        }
-        // NAVBAR SHRINK ON SCROLL
-        
-
-        const header = document.querySelector("header");
-        const navToggleBtn = document.getElementById("nav-toggle-btn");
-
-        let navbarVisible = true;
-
-        // Hide navbar on scroll down
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 100 && navbarVisible) {
-                header.classList.add("hidden");
-                navToggleBtn.classList.add("show");
-                document.body.classList.add("nav-hidden");
-
-                navbarVisible = false;
-            }
-        });
-
-        // Toggle navbar manually using button
-        navToggleBtn.addEventListener("click", () => {
-            if (navbarVisible) {
-                // HIDE navbar → show ☰
-                header.classList.add("hidden");
-                navToggleBtn.classList.remove("rotate");
-                navToggleBtn.innerHTML = "☰";
-                document.body.classList.add("nav-hidden");   // ✅ ADD
-                navbarVisible = false;
-            } else {
-                // SHOW navbar → show ✕
-                header.classList.remove("hidden");
-                navToggleBtn.classList.add("rotate");
-                navToggleBtn.innerHTML = "✕";
-                document.body.classList.remove("nav-hidden"); // ✅ ADD
-                navbarVisible = true;
-            }
-        });
+// Cursor
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button,.skill-card,.proj-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(1.6)';});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';});
+});
 
 
 
-
-
-    </script>
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>
